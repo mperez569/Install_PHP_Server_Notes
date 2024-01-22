@@ -1,0 +1,54 @@
+Create EC2 instance
+Change the security group by scrolling down in the instance to where it says security
+click on the launch wizard > security group > edit inbound rules
+add an additional rule 
+Type: All traffic 
+Source: Custom 0.0.0.0/0
+Save changes and go back to the instance
+
+
+host name is: ec2-user@(PUBLIC IP address)
+Then go to SSH > Auth > and for the first box, put in the PPK key (browse downloads and insert key)
+
+Now you are connected via SSH in PuTTY
+
+sudo yum update -y (accepts all) 
+sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+
+sudo yum install -y httpd (installs Apache Web Server
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo usermod -a -G apache ec2-user
+exit
+
+Set up the PuTTY again as in step 1
+
+groups 
+sudo chown -R ec2-user:apache /var/www
+sudo chmod 2775 /var/www
+find /var/www -type d -exec sudo chmod 2775 {} \;
+find /var/www -type f -exec sudo chmod 0664 {} \;
+
+cd /var/www/html
+nano index.php (creates a php doc)
+
+In the php doc (nano window)
+insert 
+<!doctype html>
+<html>
+	<head>
+		<title>example site</title>
+	</head>
+	
+	<body>
+		<?php
+			echo "hello, my name is ";
+		?>
+	</body>
+</html>
+
+ctrl O > Enter to save the file 
+ctrl x to exit the file
+
+to check your site insert your PUBLIC IP address and your php document
+---> 00.000.00.000/index.php
