@@ -18,7 +18,7 @@ sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
 sudo yum install -y httpd (installs Apache Web Server
 sudo systemctl start httpd
 sudo systemctl enable httpd
-sudo usermod -a -G apache ec2-user
+sudo usermod -a -G apache <ec2-username>
 exit
 
 Set up the PuTTY again as in step 1
